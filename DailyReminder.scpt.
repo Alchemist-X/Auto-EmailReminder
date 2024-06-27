@@ -1,0 +1,13 @@
+set emailRecipient to "issue.00.gui@gmailcom" -- 替换为你想发送邮件的地址
+set emailSubject to "Daily Reminder"
+set emailBody to "This is your daily reminder."
+display dialog "Click Confirm to send an email." buttons {"Cancel", "Confirm"} default button "Confirm"
+if button returned of result is "Confirm" then
+    tell application "Mail"
+        set newMessage to make new outgoing message with properties {subject:emailSubject, content:emailBody, visible:true}
+        tell newMessage
+            make new to recipient at end of to recipients with properties {address:emailRecipient}
+        end tell
+        send newMessage
+    end tell
+end if
